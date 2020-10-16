@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import PropTypes from "prop-types";
 import Image from "./Image";
 
 const Results = ({ results }) => {
@@ -15,6 +16,10 @@ const Results = ({ results }) => {
       </div>
     </Fragment>
   );
+};
+
+Results.propTypes = {
+  results: PropTypes.array.isRequired,
 };
 
 export default Results;

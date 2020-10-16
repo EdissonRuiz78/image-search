@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import Error from "./Error";
 
 const Search = ({ updateSearch }) => {
@@ -38,6 +39,10 @@ const Search = ({ updateSearch }) => {
       {error ? <Error message="Type Something to Search" /> : null}
     </form>
   );
+};
+
+Search.propTypes = {
+  updateSearch: PropTypes.func.isRequired,
 };
 
 export default Search;

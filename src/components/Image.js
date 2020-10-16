@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Image = ({ image }) => {
   const { largeImageURL, previewURL, likes, tags, views, downloads } = image;
@@ -10,7 +11,7 @@ const Image = ({ image }) => {
         <h3 className="card-header">{name[1]}</h3>
         <div className="card-body p-0">
           <img src={previewURL} alt={tags} height="200px" width="100%" />
-          <p className="card-text">
+          <div className="card-text">
             <p className="text-muted ml-3">{downloads} Downloads</p>
             <p className="text-muted ml-3">{likes} Likes</p>
             <p className="text-muted ml-3">{views} Views</p>
@@ -22,11 +23,15 @@ const Image = ({ image }) => {
             >
               Download
             </a>
-          </p>
+          </div>
         </div>
       </div>
     </div>
   );
+};
+
+Image.propTypes = {
+  image: PropTypes.object.isRequired,
 };
 
 export default Image;

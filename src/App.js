@@ -15,7 +15,7 @@ function App() {
     }
 
     const getApi = async () => {
-      const apiKey = "18617425-c9a20206e43583c779ab146ad";
+      const apiKey = "YOU API KEY";
       const ImagePerPage = 16;
       const url = `https://pixabay.com/api/?key=${apiKey}&q=${search}
         &per_page=${ImagePerPage}&page=${page}`;

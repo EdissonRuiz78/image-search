@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Pages = ({ page, updatePage, totalpages }) => {
   const previousPage = () => {
@@ -39,6 +40,12 @@ const Pages = ({ page, updatePage, totalpages }) => {
       )}
     </div>
   );
+};
+
+Pages.propTypes = {
+  page: PropTypes.number.isRequired,
+  updatePage: PropTypes.func.isRequired,
+  totalpages: PropTypes.number.isRequired,
 };
 
 export default Pages;
