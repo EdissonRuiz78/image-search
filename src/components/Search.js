@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import Error from "./Error";
 
-const Search = () => {
-  const [search, updateSearch] = useState("");
+const Search = ({ updateSearch }) => {
+  const [data, updateData] = useState("");
   const [error, updateError] = useState(false);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
-    if (search.trim() === "") {
+    if (data.trim() === "") {
       updateError(true);
       return;
     }
     updateError(false);
+    updateSearch(data);
   };
 
   return (
@@ -20,9 +21,9 @@ const Search = () => {
       <div className="row">
         <div className="form-group col-md-8">
           <input
-            onChange={(e) => updateSearch(e.target.value)}
+            onChange={(e) => updateData(e.target.value)}
             type="text"
-            class="form-control text-center"
+            className="form-control text-center"
             placeholder="Type Something"
           />
         </div>
