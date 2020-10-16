@@ -5,7 +5,7 @@ const Image = ({ image }) => {
   const name = tags.split(",");
 
   return (
-    <div className="col-12 col-md-4 mb-4">
+    <div className="col-12 col-sm-6 col-md-3 mb-4">
       <div className="card mb-3 p-0">
         <h3 className="card-header">{name[1]}</h3>
         <div className="card-body p-0">

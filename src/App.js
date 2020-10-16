@@ -1,78 +1,36 @@
 import React, { useState, useEffect } from "react";
 import Search from "./components/Search";
 import Results from "./components/Results";
+import Pages from "./components/Pages";
 
 function App() {
   const [search, updateSearch] = useState("");
   const [results, updateResults] = useState([]);
+  const [page, updatePage] = useState(1);
+  const [totalpages, updateTotalPages] = useState(0);
 
   useEffect(() => {
     if (search === "") {
       return;
     }
 
-    const getApi = () => {
+    const getApi = async () => {
       const apiKey = "18617425-c9a20206e43583c779ab146ad";
-      const ImagePerPage = 30;
+      const ImagePerPage = 16;
       const url = `https://pixabay.com/api/?key=${apiKey}&q=${search}
-        &per_page=${ImagePerPage}`;
+        &per_page=${ImagePerPage}&page=${page}`;
 
-      fetch(url)
-        .then((response) => response.json())
-        .then((response) => updateResults(response.hits));
+      const resultAPI = await fetch(url);
+      const response = await resultAPI.json();
+      updateResults(response.hits);
+      const total = Math.ceil(response.totalHits / ImagePerPage);
+      updateTotalPages(total);
+
+      const scrollPage = document.querySelector(".jumbotron");
+      scrollPage.scrollIntoView({ behavior: "smooth" });
     };
     getApi();
-  }, [search]);
-
-  // const scroll = () => {
-  //   const element = document.querySelector(".jumbotron");
-  //   element.scrollIntoView("smooth", "start");
-  // };
-
-  // const previousPage = () => {
-  //   let page = this.state.page;
-  //   if (page === 1) {
-  //     return null;
-  //   }
-  //   page--;
-  //   this.setState(
-  //     {
-  //       page,
-  //     },
-  //     () => {
-  //       this.getApi();
-  //       this.scroll();
-  //     }
-  //   );
-  // };
-
-  // const nextPage = () => {
-  //   let page = this.state.page;
-  //   page++;
-  //   this.setState(
-  //     {
-  //       page,
-  //     },
-  //     () => {
-  //       this.getApi();
-  //       this.scroll();
-  //     }
-  //   );
-  // };
-
-  //
-
-  // const getData = (data) => {
-  //   this.setState(
-  //     {
-  //       data: data,
-  //       page: 1,
-  //     },
-  //     () => {
-  //       this.getApi();
-  //     }
-  //   );
-  // };
+  }, [search, page]);
 
   return (
     <div className="app container mt-2">
@@ -82,6 +40,9 @@ function App() {
       </div>
       <div className="row justify-content-center">
         <Results results={results} />
+        {totalpages === 0 ? null : (
+          <Pages page={page} updatePage={updatePage} totalpages={totalpages} />
+        )}
       </div>
     </div>
   );
